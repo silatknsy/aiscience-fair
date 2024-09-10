@@ -11,6 +11,7 @@
         .exhibit:hover { transform: scale(1.05); }
         .exhibit img { width: 100px; height: 100px; object-fit: cover; }
         #info-box { margin-top: 20px; padding: 20px; background-color: #fff; border-radius: 10px; display: none; }
+        #info-box.active { display: block; }
     </style>
 </head>
 <body>
@@ -19,15 +20,15 @@
     
     <div class="exhibit-container">
         <div class="exhibit" onclick="showInfo('car')">
-            <img src="https://via.placeholder.com/100?text=Toy+Car" alt="Toy Car">
+            <img src="https://via.placeholder.com/100x100.png?text=Car" alt="Toy Car">
             <p>Toy Car</p>
         </div>
         <div class="exhibit" onclick="showInfo('leaf')">
-            <img src="https://via.placeholder.com/100?text=Leaf" alt="Leaf">
+            <img src="https://via.placeholder.com/100x100.png?text=Leaf" alt="Leaf">
             <p>Leaf</p>
         </div>
         <div class="exhibit" onclick="showInfo('water')">
-            <img src="https://via.placeholder.com/100?text=Water" alt="Water">
+            <img src="https://via.placeholder.com/100x100.png?text=Water" alt="Water">
             <p>Water</p>
         </div>
     </div>
@@ -50,7 +51,7 @@
                     break;
             }
             infoBox.innerHTML = content;
-            infoBox.style.display = 'block';
+            infoBox.classList.add('active');
         }
     </script>
 </body>
