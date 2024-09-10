@@ -12,6 +12,7 @@
         .exhibit img { width: 100px; height: 100px; object-fit: cover; }
         #info-box { margin-top: 20px; padding: 20px; background-color: #fff; border-radius: 10px; display: none; }
         #info-box.active { display: block; }
+        .error-message { color: red; font-size: 12px; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -20,39 +21,14 @@
     
     <div class="exhibit-container">
         <div class="exhibit" onclick="showInfo('car')">
-            <img src="https://images.unsplash.com/photo-1572293435484-111a13ba5b82?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDV8fHRveSUyMGNhcnxlbnwwfHx8fDE2ODkxMTk5MTQ&ixlib=rb-1.2.1&q=80&w=100" alt="Toy Car">
+            <img src="https://images.unsplash.com/photo-1572293435484-111a13ba5b82?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDV8fHRveSUyMGNhcnxlbnwwfHx8fDE2ODkxMTk5MTQ&ixlib=rb-1.2.1&q=80&w=100" alt="Toy Car" onerror="this.onerror=null; this.src='https://via.placeholder.com/100'; showErrorMessage(this);">
             <p>Toy Car</p>
+            <div class="error-message"></div>
         </div>
         <div class="exhibit" onclick="showInfo('leaf')">
-            <img src="https://images.unsplash.com/photo-1580377964767-d1c8d87aa9f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDZ8fGxlYWZ8ZW58MHx8fHwxNjg5MTE5OTE0&ixlib=rb-1.2.1&q=80&w=100" alt="Leaf">
+            <img src="https://images.unsplash.com/photo-1580377964767-d1c8d87aa9f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDZ8fGxlYWZ8ZW58MHx8fHwxNjg5MTE5OTE0&ixlib=rb-1.2.1&q=80&w=100" alt="Leaf" onerror="this.onerror=null; this.src='https://via.placeholder.com/100'; showErrorMessage(this);">
             <p>Leaf</p>
+            <div class="error-message"></div>
         </div>
         <div class="exhibit" onclick="showInfo('water')">
-            <img src="https://images.unsplash.com/photo-1502741126161-b048400d4b9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDh8fHdhdGVyfGVufDB8fHx8MTY4OTExOTkxNA&ixlib=rb-1.2.1&q=80&w=100" alt="Water">
-            <p>Water</p>
-        </div>
-    </div>
-
-    <div id="info-box"></div>
-
-    <script>
-        function showInfo(exhibit) {
-            const infoBox = document.getElementById('info-box');
-            let content = '';
-            switch(exhibit) {
-                case 'car':
-                    content = "AI: This toy car demonstrates Newton's laws of motion. When you push it, that's an example of Newton's First Law - an object in motion stays in motion unless acted upon by an external force!";
-                    break;
-                case 'leaf':
-                    content = "AI: Some plants, like the Sandbox Tree, have leaves that can trigger explosive seed dispersal! These seeds can be launched at speeds up to 150 miles per hour.";
-                    break;
-                case 'water':
-                    content = "AI: Water can exist in three states simultaneously - solid, liquid, and gas. This is called the triple point of water and occurs at a specific temperature and pressure!";
-                    break;
-            }
-            infoBox.innerHTML = content;
-            infoBox.classList.add('active');
-        }
-    </script>
-</body>
-</html>
+            <img src="https://images.unsplash.com/photo-1502741126161-b048400d4b9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDh8fHdhdGVyfGVufDB
