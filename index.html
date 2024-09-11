@@ -104,6 +104,10 @@
             height: 200px;
             overflow-y: scroll;
         }
+
+        #image-preview img {
+            max-width: 300px;
+        }
     </style>
 </head>
 
@@ -114,8 +118,9 @@
     <!-- Snap Picture Button -->
     <div style="text-align: center; margin-top: 20px;">
         <label for="upload-picture">Snap a Picture of Your Exhibit: </label>
-        <input type="file" id="upload-picture" accept="image/*" onchange="displayImage(event)">
+        <input type="file" id="upload-picture" accept="image/*" onchange="analyzeImage(event)">
         <div id="image-preview" style="margin-top: 20px;"></div>
+        <div id="image-info" style="margin-top: 10px; background-color: white; padding: 10px; border-radius: 5px;"></div>
     </div>
 
     <!-- Exhibits -->
@@ -165,26 +170,42 @@
             infoBox.style.display = 'block';
         }
 
-        // Display uploaded image
-        function displayImage(event) {
+        // Analyze the uploaded image and provide a scientific explanation
+        function analyzeImage(event) {
             const imagePreview = document.getElementById('image-preview');
+            const imageInfo = document.getElementById('image-info');
             const file = event.target.files[0];
             const reader = new FileReader();
+
             reader.onload = function (e) {
                 const img = document.createElement('img');
                 img.src = e.target.result;
-                img.style.maxWidth = '300px';
                 imagePreview.innerHTML = '';
                 imagePreview.appendChild(img);
+
+                // Simulated image recognition (for demonstration)
+                if (file.name.includes('car')) {
+                    imageInfo.textContent = "This is a toy car. Did you know? Newton's First Law of Motion applies here – objects at rest stay at rest, and objects in motion stay in motion!";
+                } else if (file.name.includes('leaf')) {
+                    imageInfo.textContent = "This is a leaf. Leaves play a critical role in photosynthesis, where plants convert sunlight into energy!";
+                } else if (file.name.includes('water')) {
+                    imageInfo.textContent = "This is water. Water exists in three states - liquid, solid, and gas. At the triple point, water can exist in all three states at the same time!";
+                } else if (file.name.includes('planet')) {
+                    imageInfo.textContent = "This is a planet! Did you know? Jupiter is the largest planet in our solar system, and it’s mostly made up of hydrogen and helium.";
+                } else if (file.name.includes('animal')) {
+                    imageInfo.textContent = "This is an animal! Fun fact: Cheetahs are the fastest land animals, capable of running at speeds up to 70 miles per hour.";
+                } else {
+                    imageInfo.textContent = "AI: Hmm, I'm not sure what this is! Try uploading a picture of a car, leaf, water, planet, or animal to learn more.";
+                }
             }
             reader.readAsDataURL(file);
         }
 
-        // Simple Chatbot
+        // Expanded Chatbot with more dynamic responses
         function sendChatbotMessage() {
-            const input = document.getElementById('chatbot-input').value;
+            const input = document.getElementById('chatbot-input').value.toLowerCase();
             const messages = document.getElementById('chatbot-messages');
-            const response = getChatbotResponse(input);
+            let response = getChatbotResponse(input);
 
             const userMessage = document.createElement('p');
             userMessage.textContent = "You: " + input;
@@ -199,12 +220,22 @@
         }
 
         function getChatbotResponse(input) {
-            if (input.includes('Newton')) {
-                return "Newton's laws describe the relationship between a body and the forces acting on it, as well as the motion of the body in response to those forces.";
+            if (input.includes('newton')) {
+                return "Newton's laws describe the relationship between a body and the forces acting on it, and the body's motion in response to those forces.";
             } else if (input.includes('water')) {
-                return "Water is one of the few substances that can exist in three states simultaneously: liquid, solid, and gas. This occurs at the 'triple point'.";
+                return "Water is unique because it can exist in three states: liquid, solid, and gas. This happens at the triple point.";
+            } else if (input.includes('photosynthesis')) {
+                return "Photosynthesis is the process by which plants use sunlight, carbon dioxide, and water to create food and release oxygen.";
+            } else if (input.includes('planet')) {
+                return "Planets are large celestial bodies that orbit a star. Earth is the only planet known to support life, while gas giants like Jupiter are mostly made of hydrogen and helium.";
+            } else if (input.includes('animal')) {
+                return "Animals are multicellular organisms that form the biological kingdom Animalia. For example, cheetahs are the fastest land animals!";
+            } else if (input.includes('gravity')) {
+                return "Gravity is the force that attracts two bodies toward each other. It’s why objects fall to the ground and why planets orbit the Sun.";
+            } else if (input.includes('energy')) {
+                return "Energy comes in many forms, including kinetic, potential, thermal, and electrical. The law of conservation of energy states that energy cannot be created or destroyed.";
             } else {
-                return "That's an interesting question! Unfortunately, I don't have the exact answer right now, but science is always full of surprises!";
+                return "That's an interesting question! Unfortunately, I don't have the answer to that right now. Keep exploring science!";
             }
         }
     </script>
