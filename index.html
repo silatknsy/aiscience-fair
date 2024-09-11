@@ -77,8 +77,22 @@
             <p>Water</p>
         </div>
     </div>
-
     <div id="info-box"></div>
+
+    <script>
+        function showInfo(exhibit) {
+            const infoBox = document.getElementById('info-box');
+            let content = '';
+            switch(exhibit) {
+                case 'car':
+                    content = "AI: This toy car demonstrates Newton's laws of motion. When you push it, that's an example of Newton's First Law - an object in motion stays in motion unless acted upon by an external force!";
+                    break;
+                case 'leaf':
+                    content = "AI: Some plants, like the Sandbox Tree, have leaves that can trigger explosive seed dispersal! These seeds can be launched at speeds up to 150 miles per hour.";
+                    break;
+                case 'water':
+                    content = "AI: Water can exist in three states simultaneously - solid, liquid, and gas. This is called the triple point of water and occurs at a specific temperature and pressure!";
+                    break;
             }
             infoBox.innerHTML = content;
             infoBox.style.display = 'block';
