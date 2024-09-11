@@ -107,4 +107,80 @@
 
 <body>
     <h1>Welcome to the 2D Virtual AI Science Fair!</h1>
-    <p>Click on an exhibit to 
+    <p>Click on an exhibit to learn more from our AI assistant or ask questions in the chatbot!</p>
+
+    <!-- Snap Picture Button -->
+    <div style="text-align: center; margin-top: 20px;">
+        <label for="upload-picture">Snap a Picture of Your Exhibit: </label>
+        <input type="file" id="upload-picture" accept="image/*" onchange="analyzeImage(event)">
+        <div id="image-preview" style="margin-top: 20px;"></div>
+        <div id="image-info" style="margin-top: 10px; background-color: white; padding: 10px; border-radius: 5px;"></div>
+    </div>
+
+    <!-- Exhibits -->
+    <div class="exhibit-container">
+        <div class="exhibit" onclick="showInfo('car')">
+            <img src="https://p.turbosquid.com/ts-thumb/mh/r6VotY/Km/hr.6820/jpg/1704025952/300x300/sharp_fit_q85/ca0d41072f954d0fb692f1a33823ca02f427bf62/hr.6820.jpg" alt="Toy Car">
+            <p>Toy Car</p>
+        </div>
+        <div class="exhibit" onclick="showInfo('leaf')">
+            <img src="https://png.pngtree.com/png-vector/20240312/ourmid/pngtree-green-leaf-for-element-png-image_11934356.png" alt="Leaf">
+            <p>Leaf</p>
+        </div>
+        <div class="exhibit" onclick="showInfo('water')">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXHEaMGB57paVoSpBWVLzP5O1tWSosZ4FnXg&s" alt="Water">
+            <p>Water</p>
+        </div>
+    </div>
+    <div id="info-box"></div>
+
+    <!-- Chatbot Section -->
+    <div id="chatbot-container">
+        <h2>Ask the AI Scientist</h2>
+        <div id="chatbot-messages"></div>
+        <input type="text" id="chatbot-input" placeholder="Type your question here..." />
+        <button id="chatbot-send" onclick="handleSendMessage()">Send</button>
+    </div>
+
+    <script>
+        async function sendMessage(userMessage) {
+            const response = await fetch('http://your-server-ip:5000/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userMessage })
+            });
+
+            const data = await response.json();
+            return data.response;
+        }
+
+        // Handle sending the message and displaying it
+        async function handleSendMessage() {
+            const userMessage = document.getElementById('chatbot-input').value;
+            const chatbotMessages = document.getElementById('chatbot-messages');
+
+            // Display user message
+            const userMsgElement = document.createElement('p');
+            userMsgElement.textContent = 'You: ' + userMessage;
+            chatbotMessages.appendChild(userMsgElement);
+
+            // Clear input field
+            document.getElementById('chatbot-input').value = '';
+
+            // Send message to server and get the bot's response
+            const botResponse = await sendMessage(userMessage);
+
+            // Display bot response
+            const botMsgElement = document.createElement('p');
+            botMsgElement.textContent = 'Bot: ' + botResponse;
+            chatbotMessages.appendChild(botMsgElement);
+
+            // Scroll to the bottom
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>
