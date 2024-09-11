@@ -69,93 +69,42 @@
         #image-preview img {
             max-width: 300px;
         }
+
+        #chatbot-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #chatbot-messages {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 10px;
+            height: 200px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+        }
+
+        #chatbot-input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        #chatbot-send {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
     <h1>Welcome to the 2D Virtual AI Science Fair!</h1>
-    <p>Click on an exhibit to learn more from our AI assistant or ask questions in the chatbot!</p>
-
-    <!-- Snap Picture Button -->
-    <div style="text-align: center; margin-top: 20px;">
-        <label for="upload-picture">Snap a Picture of Your Exhibit: </label>
-        <input type="file" id="upload-picture" accept="image/*" onchange="analyzeImage(event)">
-        <div id="image-preview" style="margin-top: 20px;"></div>
-        <div id="image-info" style="margin-top: 10px; background-color: white; padding: 10px; border-radius: 5px;"></div>
-    </div>
-
-    <!-- Exhibits -->
-    <div class="exhibit-container">
-        <div class="exhibit" onclick="showInfo('car')">
-            <img src="https://p.turbosquid.com/ts-thumb/mh/r6VotY/Km/hr.6820/jpg/1704025952/300x300/sharp_fit_q85/ca0d41072f954d0fb692f1a33823ca02f427bf62/hr.6820.jpg" alt="Toy Car">
-            <p>Toy Car</p>
-        </div>
-        <div class="exhibit" onclick="showInfo('leaf')">
-            <img src="https://png.pngtree.com/png-vector/20240312/ourmid/pngtree-green-leaf-for-element-png-image_11934356.png" alt="Leaf">
-            <p>Leaf</p>
-        </div>
-        <div class="exhibit" onclick="showInfo('water')">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXHEaMGB57paVoSpBWVLzP5O1tWSosZ4FnXg&s" alt="Water">
-            <p>Water</p>
-        </div>
-    </div>
-    <div id="info-box"></div>
-
-    <!-- External Chatbot Integration (ScienceOS) -->
-    <div id="chatbot-container" style="text-align: center; margin-top: 30px;">
-        <h2>Ask the AI Scientist</h2>
-        <!-- Embed the ScienceOS chatbot in an iframe -->
-        <iframe src="https://www.scienceos.ai/science-ai-chat/" width="600" height="500" style="border:none;"></iframe>
-    </div>
-
-    <script>
-        // Show information about each exhibit
-        function showInfo(exhibit) {
-            const infoBox = document.getElementById('info-box');
-            let content = '';
-            switch (exhibit) {
-                case 'car':
-                    content = "AI: This toy car demonstrates Newton's laws of motion. When you push it, that's an example of Newton's First Law - an object in motion stays in motion unless acted upon by an external force!";
-                    break;
-                case 'leaf':
-                    content = "AI: Some plants, like the Sandbox Tree, have leaves that can trigger explosive seed dispersal! These seeds can be launched at speeds up to 150 miles per hour.";
-                    break;
-                case 'water':
-                    content = "AI: Water can exist in three states simultaneously - solid, liquid, and gas. This is called the triple point of water and occurs at a specific temperature and pressure!";
-                    break;
-            }
-            infoBox.innerHTML = content;
-            infoBox.style.display = 'block';
-        }
-
-        // Analyze the uploaded image and provide a scientific explanation
-        function analyzeImage(event) {
-            const imagePreview = document.getElementById('image-preview');
-            const imageInfo = document.getElementById('image-info');
-            const file = event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                imagePreview.innerHTML = '';
-                imagePreview.appendChild(img);
-
-                // Simulated image recognition (for demonstration)
-                if (file.name.includes('car')) {
-                    imageInfo.textContent = "This is a toy car. Did you know? Newton's First Law of Motion applies here – objects at rest stay at rest, and objects in motion stay in motion!";
-                } else if (file.name.includes('leaf')) {
-                    imageInfo.textContent = "This is a leaf. Leaves play a critical role in photosynthesis, where plants convert sunlight into energy!";
-                } else if (file.name.includes('water')) {
-                    imageInfo.textContent = "This is water. Water exists in three states - liquid, solid, and gas. At the triple point, water can exist in all three states at the same time!";
-                } else {
-                    imageInfo.textContent = "AI: Hmm, I'm not sure what this is! Try uploading a toy car, leaf, or water picture to learn more.";
-                }
-            }
-            reader.readAsDataURL(file);
-        }
-    </script>
-</body>
-
-</html>
-
+    <p>Click on an exhibit to 
