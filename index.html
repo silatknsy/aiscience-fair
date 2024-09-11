@@ -1,123 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2D Virtual AI Science Fair</title>
+  <title>2D Virtual AI Science Fair</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: url('https://i.imgur.com/ex1dLyv.png') no-repeat center center fixed;
-            background-size: cover;
-            color: black;
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: url('https://i.imgur.com/ex1dLyv.png') no-repeat center center fixed; /* Direct link to your image */
+            background-size: cover; /* Ensure the image covers the full background */
+            color: black; /* Text color for readability */
         }
-
-        h1,
-        p {
+        h1, p {
             text-align: center;
         }
-
-        .exhibit-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
+        .exhibit-container { 
+            display: flex; 
+            justify-content: space-around; 
+            flex-wrap: wrap; 
         }
-
-        .exhibit {
-            width: 200px;
-            height: 250px;
-            margin: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s;
+        .exhibit { 
+            width: 200px; 
+            height: 250px; 
+            margin: 20px; 
+            background-color: rgba(0, 0, 0, 0.7); /* Dark background for readability */
+            border-radius: 10px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            transition: transform 0.3s; 
         }
-
-        .exhibit:hover {
-            transform: scale(1.1);
-            background-color: rgba(0, 0, 0, 0.9);
+        .exhibit:hover { 
+            transform: scale(1.1); 
+            background-color: rgba(0, 0, 0, 0.9); /* Slightly lighter on hover */
         }
-
-        .exhibit img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
+        .exhibit img { 
+            width: 100px; 
+            height: 100px; 
+            object-fit: cover; 
             border-radius: 10px;
         }
-
         .exhibit p {
             margin-top: 10px;
             color: #ddd;
         }
-
-        #info-box {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            color: black;
-            display: none;
-        }
-
-        #image-preview img {
-            max-width: 300px;
-        }
-
-        #chatbot-container {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        #chatbot-messages {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #f1f1f1;
-            padding: 15px;
-            border-radius: 10px;
-            height: 200px;
-            overflow-y: scroll;
-            margin-bottom: 20px;
-        }
-
-        #chatbot-input {
-            width: 80%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-
-        #chatbot-send {
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        #info-box { 
+            margin-top: 20px; 
+            padding: 20px; 
+            background-color: #fff; 
+            border-radius: 10px; 
+            color: black; /* Info text in black */
+            display: none; 
         }
     </style>
 </head>
-
 <body>
     <h1>Welcome to the 2D Virtual AI Science Fair!</h1>
-    <p>Click on an exhibit to learn more from our AI assistant or ask questions in the chatbot!</p>
-
-    <!-- Snap Picture Button -->
-    <div style="text-align: center; margin-top: 20px;">
-        <label for="upload-picture">Snap a Picture of Your Exhibit: </label>
-        <input type="file" id="upload-picture" accept="image/*" onchange="analyzeImage(event)">
-        <div id="image-preview" style="margin-top: 20px;"></div>
-        <div id="image-info" style="margin-top: 10px; background-color: white; padding: 10px; border-radius: 5px;"></div>
-    </div>
-
-    <!-- Exhibits -->
+    <p>Click on an exhibit to learn more from our AI assistant.</p>
+    
     <div class="exhibit-container">
         <div class="exhibit" onclick="showInfo('car')">
             <img src="https://p.turbosquid.com/ts-thumb/mh/r6VotY/Km/hr.6820/jpg/1704025952/300x300/sharp_fit_q85/ca0d41072f954d0fb692f1a33823ca02f427bf62/hr.6820.jpg" alt="Toy Car">
@@ -134,53 +79,24 @@
     </div>
     <div id="info-box"></div>
 
-    <!-- Chatbot Section -->
-    <div id="chatbot-container">
-        <h2>Ask the AI Scientist</h2>
-        <div id="chatbot-messages"></div>
-        <input type="text" id="chatbot-input" placeholder="Type your question here..." />
-        <button id="chatbot-send" onclick="handleSendMessage()">Send</button>
-    </div>
-
     <script>
-        async function sendMessage(userMessage) {
-            const response = await fetch('http://your-server-ip:5000/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message: userMessage })
-            });
-
-            const data = await response.json();
-            return data.response;
-        }
-
-        // Handle sending the message and displaying it
-        async function handleSendMessage() {
-            const userMessage = document.getElementById('chatbot-input').value;
-            const chatbotMessages = document.getElementById('chatbot-messages');
-
-            // Display user message
-            const userMsgElement = document.createElement('p');
-            userMsgElement.textContent = 'You: ' + userMessage;
-            chatbotMessages.appendChild(userMsgElement);
-
-            // Clear input field
-            document.getElementById('chatbot-input').value = '';
-
-            // Send message to server and get the bot's response
-            const botResponse = await sendMessage(userMessage);
-
-            // Display bot response
-            const botMsgElement = document.createElement('p');
-            botMsgElement.textContent = 'Bot: ' + botResponse;
-            chatbotMessages.appendChild(botMsgElement);
-
-            // Scroll to the bottom
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        function showInfo(exhibit) {
+            const infoBox = document.getElementById('info-box');
+            let content = '';
+            switch(exhibit) {
+                case 'car':
+                    content = "AI: This toy car demonstrates Newton's laws of motion. When you push it, that's an example of Newton's First Law - an object in motion stays in motion unless acted upon by an external force!";
+                    break;
+                case 'leaf':
+                    content = "AI: Some plants, like the Sandbox Tree, have leaves that can trigger explosive seed dispersal! These seeds can be launched at speeds up to 150 miles per hour.";
+                    break;
+                case 'water':
+                    content = "AI: Water can exist in three states simultaneously - solid, liquid, and gas. This is called the triple point of water and occurs at a specific temperature and pressure!";
+                    break;
+            }
+            infoBox.innerHTML = content;
+            infoBox.style.display = 'block';
         }
     </script>
 </body>
-
 </html>
