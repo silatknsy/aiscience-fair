@@ -66,45 +66,6 @@
             display: none;
         }
 
-        /* Chatbot section */
-        #chatbot-container {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 10px;
-            color: black;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-        }
-
-        #chatbot-input {
-            width: 80%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-
-        #chatbot-send {
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #chatbot-messages {
-            margin-top: 10px;
-            background-color: #f1f1f1;
-            padding: 10px;
-            border-radius: 5px;
-            height: 200px;
-            overflow-y: scroll;
-        }
-
         #image-preview img {
             max-width: 300px;
         }
@@ -140,14 +101,11 @@
     </div>
     <div id="info-box"></div>
 
-    <!-- Chatbot Section -->
-    <div id="chatbot-container">
+    <!-- External Chatbot Integration (Mindjoy) -->
+    <div id="chatbot-container" style="text-align: center; margin-top: 30px;">
         <h2>Ask the AI Scientist</h2>
-        <div>
-            <input type="text" id="chatbot-input" placeholder="Ask me a science question..." />
-            <button id="chatbot-send" onclick="sendChatbotMessage()">Send</button>
-        </div>
-        <div id="chatbot-messages"></div>
+        <!-- Embed the Mindjoy chatbot in an iframe -->
+        <iframe src="https://beta.mindjoy.com/educators/tutors/Z2lkOi8vY29tbWVudHMvVHV0b3IvMzM" width="600" height="500" style="border:none;"></iframe>
     </div>
 
     <script>
@@ -190,53 +148,11 @@
                     imageInfo.textContent = "This is a leaf. Leaves play a critical role in photosynthesis, where plants convert sunlight into energy!";
                 } else if (file.name.includes('water')) {
                     imageInfo.textContent = "This is water. Water exists in three states - liquid, solid, and gas. At the triple point, water can exist in all three states at the same time!";
-                } else if (file.name.includes('planet')) {
-                    imageInfo.textContent = "This is a planet! Did you know? Jupiter is the largest planet in our solar system, and it’s mostly made up of hydrogen and helium.";
-                } else if (file.name.includes('animal')) {
-                    imageInfo.textContent = "This is an animal! Fun fact: Cheetahs are the fastest land animals, capable of running at speeds up to 70 miles per hour.";
                 } else {
-                    imageInfo.textContent = "AI: Hmm, I'm not sure what this is! Try uploading a picture of a car, leaf, water, planet, or animal to learn more.";
+                    imageInfo.textContent = "AI: Hmm, I'm not sure what this is! Try uploading a toy car, leaf, or water picture to learn more.";
                 }
             }
             reader.readAsDataURL(file);
-        }
-
-        // Expanded Chatbot with more dynamic responses
-        function sendChatbotMessage() {
-            const input = document.getElementById('chatbot-input').value.toLowerCase();
-            const messages = document.getElementById('chatbot-messages');
-            let response = getChatbotResponse(input);
-
-            const userMessage = document.createElement('p');
-            userMessage.textContent = "You: " + input;
-            messages.appendChild(userMessage);
-
-            const botMessage = document.createElement('p');
-            botMessage.textContent = "AI Scientist: " + response;
-            messages.appendChild(botMessage);
-
-            messages.scrollTop = messages.scrollHeight; // Auto scroll to the bottom
-            document.getElementById('chatbot-input').value = ''; // Clear input field
-        }
-
-        function getChatbotResponse(input) {
-            if (input.includes('newton')) {
-                return "Newton's laws describe the relationship between a body and the forces acting on it, and the body's motion in response to those forces.";
-            } else if (input.includes('water')) {
-                return "Water is unique because it can exist in three states: liquid, solid, and gas. This happens at the triple point.";
-            } else if (input.includes('photosynthesis')) {
-                return "Photosynthesis is the process by which plants use sunlight, carbon dioxide, and water to create food and release oxygen.";
-            } else if (input.includes('planet')) {
-                return "Planets are large celestial bodies that orbit a star. Earth is the only planet known to support life, while gas giants like Jupiter are mostly made of hydrogen and helium.";
-            } else if (input.includes('animal')) {
-                return "Animals are multicellular organisms that form the biological kingdom Animalia. For example, cheetahs are the fastest land animals!";
-            } else if (input.includes('gravity')) {
-                return "Gravity is the force that attracts two bodies toward each other. It’s why objects fall to the ground and why planets orbit the Sun.";
-            } else if (input.includes('energy')) {
-                return "Energy comes in many forms, including kinetic, potential, thermal, and electrical. The law of conservation of energy states that energy cannot be created or destroyed.";
-            } else {
-                return "That's an interesting question! Unfortunately, I don't have the answer to that right now. Keep exploring science!";
-            }
         }
     </script>
 </body>
