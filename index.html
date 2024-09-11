@@ -94,6 +94,45 @@
                 case 'water':
                     content = "AI: Water can exist in three states simultaneously - solid, liquid, and gas. This is called the triple point of water and occurs at a specific temperature and pressure!";
                     break;
+          <div class="exhibit" onclick="showInfo('robot')">
+            <img src="https://www.pngall.com/wp-content/uploads/2016/07/Robot-PNG-Picture.png" alt="Robot">
+            <p>Robot</p>
+        </div>
+        <div class="exhibit" onclick="showInfo('volcano')">
+            <img src="https://www.pngall.com/wp-content/uploads/4/Volcano-PNG-Pic.png" alt="Volcano">
+            <p>Volcano</p>
+        </div>
+        <div class="exhibit" onclick="showInfo('magnet')">
+            <img src="https://www.pngall.com/wp-content/uploads/2016/03/Magnet-Transparent.png" alt="Magnet">
+            <p>Magnet</p>
+        </div>
+    </div>
+
+    <div id="info-box"></div>
+
+    <script>
+        function showInfo(exhibit) {
+            const infoBox = document.getElementById('info-box');
+            let content = '';
+            switch(exhibit) {
+                case 'car':
+                    content = "AI: This toy car demonstrates Newton's laws of motion. When you push it, that's an example of Newton's First Law - an object in motion stays in motion unless acted upon by an external force!";
+                    break;
+                case 'leaf':
+                    content = "AI: Some plants, like the Sandbox Tree, have leaves that can trigger explosive seed dispersal! These seeds can be launched at speeds up to 150 miles per hour.";
+                    break;
+                case 'water':
+                    content = "AI: Water can exist in three states simultaneously - solid, liquid, and gas. This is called the triple point of water and occurs at a specific temperature and pressure!";
+                    break;
+                case 'robot':
+                    content = "AI: Robots can be programmed to perform tasks autonomously. They are widely used in manufacturing, space exploration, and even healthcare to assist in surgeries!";
+                    break;
+                case 'volcano':
+                    content = "AI: Volcanoes erupt when magma from the Earth’s mantle breaks through the surface. Some of the largest eruptions have altered the Earth’s climate by releasing ash and gases!";
+                    break;
+                case 'magnet':
+                    content = "AI: Magnets produce a magnetic field that can attract or repel certain materials. They are used in everything from compasses to electric motors and even MRI machines!";
+                    break;
             }
             infoBox.innerHTML = content;
             infoBox.style.display = 'block';
