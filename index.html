@@ -9,7 +9,11 @@
             font-family: Arial, sans-serif; 
             margin: 0; 
             padding: 20px; 
-            background-color: #f0f0f0; 
+            background-color: #282c34; /* Dark background */
+            color: white; /* Text color */
+        }
+        h1, p {
+            text-align: center;
         }
         .exhibit-container { 
             display: flex; 
@@ -18,9 +22,9 @@
         }
         .exhibit { 
             width: 200px; 
-            height: 200px; 
+            height: 250px; 
             margin: 20px; 
-            background-color: #fff; 
+            background-color: #444; /* Darker background for exhibit */
             border-radius: 10px; 
             display: flex; 
             flex-direction: column; 
@@ -30,7 +34,8 @@
             transition: transform 0.3s; 
         }
         .exhibit:hover { 
-            transform: scale(1.05); 
+            transform: scale(1.1); 
+            background-color: #555; /* Slightly lighter on hover */
         }
         .exhibit img { 
             width: 100px; 
@@ -38,11 +43,16 @@
             object-fit: cover; 
             border-radius: 10px;
         }
+        .exhibit p {
+            margin-top: 10px;
+            color: #ddd;
+        }
         #info-box { 
             margin-top: 20px; 
             padding: 20px; 
             background-color: #fff; 
             border-radius: 10px; 
+            color: black; /* Info text in black */
             display: none; 
         }
     </style>
@@ -53,15 +63,15 @@
     
     <div class="exhibit-container">
         <div class="exhibit" onclick="showInfo('car')">
-            <img src="https://www.pngitem.com/pimgs/m/35-357788_toy-car-png-transparent-png.png" alt="Toy Car">
+            <img src="https://www.pngall.com/wp-content/uploads/5/Toy-Car-PNG-Pic.png" alt="Toy Car">
             <p>Toy Car</p>
         </div>
         <div class="exhibit" onclick="showInfo('leaf')">
-            <img src="https://www.pngall.com/wp-content/uploads/2016/06/Leaf-Free-PNG-Image.png" alt="Leaf">
+            <img src="https://www.pngall.com/wp-content/uploads/11/Green-Leaf-PNG-Free-Download.png" alt="Leaf">
             <p>Leaf</p>
         </div>
         <div class="exhibit" onclick="showInfo('water')">
-            <img src="https://www.pngall.com/wp-content/uploads/2016/03/Water-Free-Download-PNG.png" alt="Water">
+            <img src="https://www.pngall.com/wp-content/uploads/3/Water-Drop-PNG-Image.png" alt="Water">
             <p>Water</p>
         </div>
     </div>
@@ -89,4 +99,3 @@
     </script>
 </body>
 </html>
-
