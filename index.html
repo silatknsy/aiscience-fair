@@ -1,68 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2D Virtual AI Science Fair</title>
-  <title>2D Virtual AI Science Fair</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            margin: 0; 
-            padding: 20px; 
-            background: url('https://i.imgur.com/ex1dLyv.png') no-repeat center center fixed; /* Direct link to your image */
-            background-size: cover; /* Ensure the image covers the full background */
-            color: black; /* Text color for readability */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: url('https://i.imgur.com/ex1dLyv.png') no-repeat center center fixed;
+            background-size: cover;
+            color: black;
         }
-        h1, p {
+
+        h1,
+        p {
             text-align: center;
         }
-        .exhibit-container { 
-            display: flex; 
-            justify-content: space-around; 
-            flex-wrap: wrap; 
+
+        .exhibit-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
         }
-        .exhibit { 
-            width: 200px; 
-            height: 250px; 
-            margin: 20px; 
-            background-color: rgba(0, 0, 0, 0.7); /* Dark background for readability */
-            border-radius: 10px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            transition: transform 0.3s; 
+
+        .exhibit {
+            width: 200px;
+            height: 250px;
+            margin: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
-        .exhibit:hover { 
-            transform: scale(1.1); 
-            background-color: rgba(0, 0, 0, 0.9); /* Slightly lighter on hover */
+
+        .exhibit:hover {
+            transform: scale(1.1);
+            background-color: rgba(0, 0, 0, 0.9);
         }
-        .exhibit img { 
-            width: 100px; 
-            height: 100px; 
-            object-fit: cover; 
+
+        .exhibit img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
             border-radius: 10px;
         }
+
         .exhibit p {
             margin-top: 10px;
             color: #ddd;
         }
-        #info-box { 
-            margin-top: 20px; 
-            padding: 20px; 
-            background-color: #fff; 
-            border-radius: 10px; 
-            color: black; /* Info text in black */
-            display: none; 
+
+        #info-box {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            color: black;
+            display: none;
+        }
+
+        /* Chatbot section */
+        #chatbot-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            color: black;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        #chatbot-input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        #chatbot-send {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #chatbot-messages {
+            margin-top: 10px;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            height: 200px;
+            overflow-y: scroll;
         }
     </style>
 </head>
+
 <body>
     <h1>Welcome to the 2D Virtual AI Science Fair!</h1>
-    <p>Click on an exhibit to learn more from our AI assistant.</p>
-    
+    <p>Click on an exhibit to learn more from our AI assistant or ask questions in the chatbot!</p>
+
+    <!-- Snap Picture Button -->
+    <div style="text-align: center; margin-top: 20px;">
+        <label for="upload-picture">Snap a Picture of Your Exhibit: </label>
+        <input type="file" id="upload-picture" accept="image/*" onchange="displayImage(event)">
+        <div id="image-preview" style="margin-top: 20px;"></div>
+    </div>
+
+    <!-- Exhibits -->
     <div class="exhibit-container">
         <div class="exhibit" onclick="showInfo('car')">
             <img src="https://p.turbosquid.com/ts-thumb/mh/r6VotY/Km/hr.6820/jpg/1704025952/300x300/sharp_fit_q85/ca0d41072f954d0fb692f1a33823ca02f427bf62/hr.6820.jpg" alt="Toy Car">
@@ -79,11 +135,22 @@
     </div>
     <div id="info-box"></div>
 
+    <!-- Chatbot Section -->
+    <div id="chatbot-container">
+        <h2>Ask the AI Scientist</h2>
+        <div>
+            <input type="text" id="chatbot-input" placeholder="Ask me a science question..." />
+            <button id="chatbot-send" onclick="sendChatbotMessage()">Send</button>
+        </div>
+        <div id="chatbot-messages"></div>
+    </div>
+
     <script>
+        // Show information about each exhibit
         function showInfo(exhibit) {
             const infoBox = document.getElementById('info-box');
             let content = '';
-            switch(exhibit) {
+            switch (exhibit) {
                 case 'car':
                     content = "AI: This toy car demonstrates Newton's laws of motion. When you push it, that's an example of Newton's First Law - an object in motion stays in motion unless acted upon by an external force!";
                     break;
@@ -97,6 +164,50 @@
             infoBox.innerHTML = content;
             infoBox.style.display = 'block';
         }
+
+        // Display uploaded image
+        function displayImage(event) {
+            const imagePreview = document.getElementById('image-preview');
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '300px';
+                imagePreview.innerHTML = '';
+                imagePreview.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        }
+
+        // Simple Chatbot
+        function sendChatbotMessage() {
+            const input = document.getElementById('chatbot-input').value;
+            const messages = document.getElementById('chatbot-messages');
+            const response = getChatbotResponse(input);
+
+            const userMessage = document.createElement('p');
+            userMessage.textContent = "You: " + input;
+            messages.appendChild(userMessage);
+
+            const botMessage = document.createElement('p');
+            botMessage.textContent = "AI Scientist: " + response;
+            messages.appendChild(botMessage);
+
+            messages.scrollTop = messages.scrollHeight; // Auto scroll to the bottom
+            document.getElementById('chatbot-input').value = ''; // Clear input field
+        }
+
+        function getChatbotResponse(input) {
+            if (input.includes('Newton')) {
+                return "Newton's laws describe the relationship between a body and the forces acting on it, as well as the motion of the body in response to those forces.";
+            } else if (input.includes('water')) {
+                return "Water is one of the few substances that can exist in three states simultaneously: liquid, solid, and gas. This occurs at the 'triple point'.";
+            } else {
+                return "That's an interesting question! Unfortunately, I don't have the exact answer right now, but science is always full of surprises!";
+            }
+        }
     </script>
 </body>
+
 </html>
